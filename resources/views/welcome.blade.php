@@ -30,11 +30,65 @@
 
 <h4>Total Active Product Doesn't have Users: {{ count($productsDoesntHaveUsers) ?? 0 }}</h4>
 
-<h4>Amount of all active attached products: {{ $activeAttachedProductAmount }}</h4>
+<h4>Amount of all active attached products: </h4>
+@php 
+$totalSummerizedPrice = 0;
+@endphp
+@if(count($usersProductsAttached)>0)
+@foreach($usersProductsAttached as $attachedProductsSummerize)
+        @foreach($attachedProductsSummerize->products->groupBy('id') as $summery)
+        
+      
+        @php
+        $totalSummerizedPrice += count($summery)*$summery[0]->price; //get 1st index only
+        @endphp
+        {{count($summery)}} 
+        @if(!$loop->last)
+        +
+        @endif
+        @endforeach
+        @if($loop->last)
+        = {{$totalSummerizedPrice }}
+        @endif
+        
+@endforeach
+@endif
+    
+<h4>Summerized Price of all active attached products: </h4>
+@php 
+$totalSummerizedPrice = 0;
+@endphp
+@if(count($usersProductsAttached)>0)
+@foreach($usersProductsAttached as $attachedProductsSummerize)
+        @foreach($attachedProductsSummerize->products->groupBy('id') as $summery)
+        
+      
+        @php
+        $totalSummerizedPrice += count($summery)*$summery[0]->price; //get 1st index only
+        @endphp
+        {{count($summery)}} * {{$summery[0]->price}} 
+        @if(!$loop->last)
+        +
+        @endif
+        @endforeach
+        @if($loop->last)
+        = {{$totalSummerizedPrice }}
+        @endif
+        
+@endforeach
+@endif
 
-<h4>Summerized Price of all active attached products: {{ $totalSummerizedPrice }}</h4>
+<h4>3.7. Summarized prices of all active products per user.</h4>
 
+    @if(count($usersProductsAttached)>0)
+    @foreach($usersProductsAttached as $attachedProductsTotalPrice)
+    
+    <p>{{ucwords($attachedProductsTotalPrice->name ?? '')}} - {{$attachedProductsTotalPrice->SumActiveProduct ?? ''}}$</p>
+    @endforeach
+    @endif
+    
 
+<h4> </h4>
 
 </body>
 </html>
