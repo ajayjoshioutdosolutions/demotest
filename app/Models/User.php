@@ -65,5 +65,13 @@ class User extends Authenticatable
         });
     }
 
+    public function getSummarizedProductAttribute()
+    {
+        return $this->products->where('status','Active')->sum(function($item){
+            return $item->price;
+        });
+    }
+    
+
 
 }

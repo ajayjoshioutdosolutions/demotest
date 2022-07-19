@@ -32,6 +32,8 @@
 
 <h4>Amount of all active attached products: {{ $activeAttachedProductAmount }}</h4>
 
+<h4>Summerized Price of all active attached products: {{ $totalSummerizedPrice }}</h4>
+
 
 
 </body>
