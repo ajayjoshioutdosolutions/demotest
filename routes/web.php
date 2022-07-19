@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Models\User;
+use App\Models\Product;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,5 +26,9 @@ Route::get('/', function () {
 
     $usersProductsAttached = App\Models\User::Status('Active')->whereHas('products')->get();
 
-    return view('welcome',compact('users','usersProductsAttached'));
+    // 3.3. Count of all active products (just from products table).
+
+    $products = Product::Status('Active')->get();
+
+    return view('welcome',compact('users','usersProductsAttached','products'));
 });
