@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Models\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+
+    // 3.1 Count of all active and verified users.
+    $users = App\Models\User::Status('Active')->get();
+
+    return view('welcome',compact('users','usersProductsAttached'));
 });

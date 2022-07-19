@@ -13,4 +13,9 @@ class Product extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function scopeStatus($query,$value){
+
+        $query->where('status',$value);
+    }
 }
