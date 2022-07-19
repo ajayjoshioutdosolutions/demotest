@@ -30,6 +30,8 @@
 
 <h4>Total Active Product Doesn't have Users: {{ count($productsDoesntHaveUsers) ?? 0 }}</h4>
 
+<h4>Amount of all active attached products: {{ $activeAttachedProductAmount }}</h4>
+
 
 
 </body>
