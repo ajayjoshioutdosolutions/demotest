@@ -25,6 +25,7 @@ class User extends Authenticatable
         'password',
     ];
 
+    protected $with=['products'];
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -44,8 +45,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Active and email verified timestamp scope 
+     */
+    public function scopeStatus($query,$value){
+        $query->where('status',$value)->whereNotNull('email_verified_at');
+
+    }
+    
     public function products()
     {
         return $this->belongsToMany(Product::class);
     }
+
 }
