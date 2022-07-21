@@ -30,5 +30,10 @@ Route::get('/', function () {
 
     $products = Product::Status('Active')->get();
 
-    return view('welcome',compact('users','usersProductsAttached','products'));
+    // 3.4. Count of active products which don't belong to any user.
+
+    $productsDoesntHaveUsers = Product::Status('Active')->doesnthave('users')->get();
+
+
+    return view('welcome',compact('users','usersProductsAttached','products','productsDoesntHaveUsers'));
 });

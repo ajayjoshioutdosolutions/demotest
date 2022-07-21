@@ -28,5 +28,9 @@
 
 <h4>Total Active Product : {{ count($products) ?? 0 }}</h4>
 
+<h4>Total Active Product Doesn't have Users: {{ count($productsDoesntHaveUsers) ?? 0 }}</h4>
+
+
+
 </body>
 </html>
