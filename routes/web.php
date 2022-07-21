@@ -45,6 +45,23 @@ Route::get('/', function () {
     foreach($usersProductsAttached as $attachedProductsTotalPrice)
     $activeAttachedProductAmount += $attachedProductsTotalPrice->SumActiveProduct;
 
+    // 3.6. Summarized price of all active attached products (from the previous subpoint if prod1 price is 100$, prod2 price is 120$, prod3 price is 200$, the summarized price will be 3 x 100 + 9 x 120 = 1380).
 
-    return view('welcome',compact('users','usersProductsAttached','products','productsDoesntHaveUsers','activeAttachedProductAmount'));
+    $usersProductsAttached = User::Status('Active')->whereHas('products')->get();
+
+    $totalSummerizedPrice = 0;
+
+    if($usersProductsAttached)
+    foreach($usersProductsAttached as $attachedProductsSummerize)
+    {
+        $groupedData = $attachedProductsTotalPrice->products->groupBy('id');
+   
+        foreach($groupedData as $summery){
+            
+            $totalSummerizedPrice += count($summery)*$summery[0]->price; //get 1st index only
+        }
+    }
+    
+
+    return view('welcome',compact('users','usersProductsAttached','products','productsDoesntHaveUsers','activeAttachedProductAmount','totalSummerizedPrice'));
 });
