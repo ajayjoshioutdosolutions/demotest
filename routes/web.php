@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Models\User;
 use App\Models\Product;
-
+use App\Http\Controllers\CurrencyConvertor;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +37,5 @@ Route::get('/', function () {
 
     return view('welcome',compact('users','usersProductsAttached','products','productsDoesntHaveUsers'));
 });
+
+Route::get('currency-convert',CurrencyConvertor::class);
