@@ -20,11 +20,11 @@ use App\Models\Product;
 Route::get('/', function () {
 
     // 3.1 Count of all active and verified users.
-    $users = App\Models\User::Status('Active')->get();
+    $users = User::Status('Active')->get();
 
     // 3.2. Count of active and verified users who have attached active products.
 
-    $usersProductsAttached = App\Models\User::Status('Active')->whereHas('products')->get();
+    $usersProductsAttached = User::Status('Active')->whereHas('products')->get();
 
     // 3.3. Count of all active products (just from products table).
 
@@ -34,6 +34,17 @@ Route::get('/', function () {
 
     $productsDoesntHaveUsers = Product::Status('Active')->doesnthave('users')->get();
 
+    // 3.5. Amount of all active attached products (if user1 has 3 prod1 and 2 prod2 which are active, user2 has 7 prod2 and 4 prod3, prod3 is inactive, then the amount of active attached products will be 3 + 2 + 7 = 12).
+    
 
-    return view('welcome',compact('users','usersProductsAttached','products','productsDoesntHaveUsers'));
+    $usersProductsAttached = User::Status('Active')->whereHas('products')->get();
+    
+    $activeAttachedProductAmount = 0.0;
+    
+    if($usersProductsAttached)
+    foreach($usersProductsAttached as $attachedProductsTotalPrice)
+    $activeAttachedProductAmount += $attachedProductsTotalPrice->SumActiveProduct;
+
+
+    return view('welcome',compact('users','usersProductsAttached','products','productsDoesntHaveUsers','activeAttachedProductAmount'));
 });

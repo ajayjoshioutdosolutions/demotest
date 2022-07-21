@@ -18,4 +18,5 @@ class Product extends Model
 
         $query->where('status',$value);
     }
+    
 }

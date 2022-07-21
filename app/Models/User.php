@@ -58,4 +58,12 @@ class User extends Authenticatable
         return $this->belongsToMany(Product::class);
     }
 
+    public function getSumActiveProductAttribute()
+    {
+        return $this->products->where('status','Active')->sum(function($item){
+            return $item->price;
+        });
+    }
+
+
 }
