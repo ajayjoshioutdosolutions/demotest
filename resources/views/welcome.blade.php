@@ -26,5 +26,7 @@
 <h4>Total Active and Verified Users: {{$users->count() ?? '' }}</h4>
 <h4>Total Active and Verified Users Product Attached : {{ count($usersProductsAttached) ?? 0 }}</h4>
 
+<h4>Total Active Product : {{ count($products) ?? 0 }}</h4>
+
 </body>
 </html>
